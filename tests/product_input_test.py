@@ -11,17 +11,14 @@ def run_around_tests():
 
 
 def test_creates_product_from_input(monkeypatch: MonkeyPatch):
-    expectedProduct = Product('testname', 2, 'kg')
-
     inputs = ['testname', 'kg', '2']
     monkeypatch.setattr('builtins.input', lambda _: inputs.pop(0))
 
     product = ProductInput.createProductFromInput()
-    assert product == expectedProduct
+    assert product == Product('testname', 2, 'kg')
 
 
 def test_createProductFromInput_recalls_input_when_invalid_value_given(monkeypatch: MonkeyPatch):
-    expectedProduct = Product('testname', 2, 'kg')
     Store.products().append(Product('a product name', 1))
 
     inputs = [
@@ -32,7 +29,7 @@ def test_createProductFromInput_recalls_input_when_invalid_value_given(monkeypat
     monkeypatch.setattr('builtins.input', lambda _: inputs.pop(0))
 
     product = ProductInput.createProductFromInput()
-    assert product == expectedProduct
+    assert product == Product('testname', 2, 'kg')
 
 
 def test_getProductFromInput_returns_none_when_no_product_exists():
@@ -54,6 +51,7 @@ def test_getProductFromInput_recalls_input_when_invalid_value_given(monkeypatch:
 
 def test_updating_product_with_updateProductFromInput(monkeypatch: MonkeyPatch):
     oldProduct = Product('old product', 2)
+    Store.products().append(oldProduct)
 
     inputs = [
         'new product',
@@ -69,8 +67,10 @@ def test_updating_product_with_updateProductFromInput(monkeypatch: MonkeyPatch):
     assert newProduct.quantity == 5
     assert newProduct.suffix == 'kg'
 
+
 def test_updateProductFromInput_inputs_have_default_value(monkeypatch: MonkeyPatch):
     oldProduct = Product('old product', 2, suffix='kg')
+    Store.products().append(oldProduct)
 
     inputs = ['', '', '']
     monkeypatch.setattr('builtins.input', lambda _: inputs.pop(0))
@@ -79,3 +79,18 @@ def test_updateProductFromInput_inputs_have_default_value(monkeypatch: MonkeyPat
 
     assert newProduct == oldProduct
 
+
+def test_updateProductFromInput_recalls_input_when_invalid_value_given(monkeypatch: MonkeyPatch):
+    oldProduct = Product('testname', 2, 'kg')
+    Store.products().append(Product('a product name', 1))
+    Store.products().append(oldProduct)
+
+    inputs = [
+        'a product name', 'testname',
+        'kg',
+        'string quantity', '-1', '2'
+    ]
+    monkeypatch.setattr('builtins.input', lambda _: inputs.pop(0))
+
+    newProduct = ProductInput.updateProductFromInput(oldProduct)
+    assert newProduct == oldProduct

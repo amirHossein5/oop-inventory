@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from models.Store import Store
+from models.Product import Product
 
 
 @dataclass
@@ -31,20 +32,28 @@ class Rules:
         return Validation(hasErrors=False, value=value, castedValue=int(value))
 
     @staticmethod
-    def unique(fieldName: str, value: str) -> Validation:
-        products = [p for p in Store.products() if p.name == value]
+    def unique(ignore: Product = None) -> Validation:
+        def __unique(fieldName: str, value: str):
+            products = [p for p in Store.products() if p.name == value]
 
-        if len(products) != 0:
-            return Validation(
-                hasErrors=True,
-                errorMsg=f'{fieldName} should be unique'
-            )
+            if ignore:
+                for k, p in enumerate(products):
+                    if p is ignore:
+                        del (products[k])
 
-        return Validation(hasErrors=False, value=value, castedValue=value)
+            if len(products) != 0:
+                return Validation(
+                    hasErrors=True,
+                    errorMsg=f'{fieldName} should be unique'
+                )
+
+            return Validation(hasErrors=False, value=value, castedValue=value)
+
+        return __unique
 
     @staticmethod
     def exists(items: list[dict], key: str) -> Validation:
-        def _exists(fieldName: str, value: str):
+        def __exists(fieldName: str, value: str):
             found = []
 
             for k, i in enumerate(items):
@@ -62,4 +71,4 @@ class Rules:
                 errorMsg=f'"{value}" not found'
             )
 
-        return _exists
+        return __exists

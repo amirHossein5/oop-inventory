@@ -10,7 +10,7 @@ class ProductInput(Input):
         name = Input.get(
             name='name',
             inputMsg='product name: ',
-            rules=[Rules.required, Rules.unique]
+            rules=[Rules.required, Rules.unique(ignore=None)]
         )
         suffix = Input.get(
             name='suffix',
@@ -28,7 +28,7 @@ class ProductInput(Input):
         name = Input.get(
             name='name',
             inputMsg=f'new name({product.name}): ',
-            rules=[Rules.required, Rules.unique],
+            rules=[Rules.required, Rules.unique(ignore=product)],
             default=product.name
         )
         suffix = Input.get(
@@ -57,4 +57,3 @@ class ProductInput(Input):
         )
 
         return product[0]
-

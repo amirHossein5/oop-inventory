@@ -43,7 +43,7 @@ class Input:
 
         value = input(inputMsg)
 
-        if default:
+        if default and value == '':
             value = value or default
 
         for rule in rules:
