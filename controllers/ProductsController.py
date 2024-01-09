@@ -79,13 +79,16 @@ class ProductsController(Controller):
 
     @staticmethod
     def delete(params: dict) -> None:
-        product = params.product
+        product = params['product']
 
         print(f'-- Delete [{product.name}] with {product.itemsLeft} left')
 
         if Input.confirm('Are you sure?(y/n): '):
+            for k, p in enumerate(Store.products()):
+                if p is product:
+                    del (Store.products()[k])
             print('deleted')
         else:
             print('cancelled')
 
-        actino('main_page')
+        action('main_page')
