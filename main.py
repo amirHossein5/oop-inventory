@@ -17,7 +17,8 @@ def actions() -> dict:
 
 def main():
     bootstrap()
-    return action('main_page', False)
+    action('main_page', False)
+    input('-- press enter to exit --')
 
 
 def action(name: str, printBefore: bool = True, params: dict = {}) -> None:
