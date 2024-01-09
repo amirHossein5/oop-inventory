@@ -18,5 +18,5 @@ class MainController(Controller):
         return Controller.nextActions([
             Action(input='[c]reate product', key='c', action='create_product'),
             Action(input='[s]how product actions', key='s', action='show_product'),
-            Action(input='[q]uit', key='q', action=lambda _: exit)
+            Action(input='[q]uit', key='q', action=lambda _: input('-- press enter to exit --'))
         ])
