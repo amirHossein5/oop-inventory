@@ -10,8 +10,8 @@ class Controller:
     @staticmethod
     def __nextActions(actions: list[Action], wrongInput: bool = False) -> None:
         print()
-        if (wrongInput):
             print('wrong input(type the letter that is inside of [])')
+        if wrongInput:
             print()
 
         for a in actions:

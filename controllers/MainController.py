@@ -1,4 +1,3 @@
-from main import action
 from models.Store import Store
 from utils.Action import Action
 from controllers.Controller import Controller

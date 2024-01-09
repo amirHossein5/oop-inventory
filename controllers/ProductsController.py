@@ -1,9 +1,8 @@
 from utils.ProductInput import ProductInput
 from main import action
 from models.Store import Store
-from models.Product import Product
 from controllers.Controller import Controller
-from utils.Action import Action 
+from utils.Action import Action
 from utils.Input import Input
 from utils.Rules import Rules
 

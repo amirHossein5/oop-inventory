@@ -7,7 +7,7 @@ class Input:
         name: str,
         inputMsg: str,
         rules: list[Rules] = [Rules.required],
-        default: str = None
+        default: str = None,
     ) -> any:
         if default:
             default = str(default)
@@ -56,7 +56,7 @@ class Input:
                     rules=rules,
                     invalidMsg=validation.errorMsg,
                     wasInvalid=True,
-                    default=default
+                    default=default,
                 )
 
             value = validation.castedValue
