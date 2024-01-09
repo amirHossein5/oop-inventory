@@ -20,7 +20,7 @@ class ProductsController(Controller):
         else:
             print('cancelled')
 
-        action('main_page')
+        return action('main_page')
 
     @staticmethod
     def show() -> None:
@@ -70,7 +70,7 @@ class ProductsController(Controller):
         product.quantity = newQuantity
 
         print('quantity updated')
-        action('main_page')
+        return action('main_page')
 
     @staticmethod
     def update(params: dict) -> None:
@@ -88,7 +88,7 @@ class ProductsController(Controller):
         else:
             print('cancelled')
 
-        action('main_page')
+        return action('main_page')
 
     @staticmethod
     def delete(params: dict) -> None:
@@ -104,4 +104,4 @@ class ProductsController(Controller):
         else:
             print('cancelled')
 
-        action('main_page')
+        return action('main_page')
