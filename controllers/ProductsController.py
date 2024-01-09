@@ -32,13 +32,27 @@ class ProductsController(Controller):
 
         print()
         print(f'-- show product [{product.name}]')
-        print(f"left: {product.itemsLeft} {'(low)' if product.hasLowQuantity else ''}")
+        print(
+            f"left: {product.itemsLeft} {'(low)' if product.hasLowQuantity else ''}"
+        )
         print(f'suffix: {product.suffix}')
 
         return Controller.nextActions([
-            Action(input='change product [q]uantity', key='q', action='update_product_quantity', params={'product': product}),
-            Action(input='[u]pdate product properties', key='u', action='update_product', params={'product': product}),
-            Action(input='[d]elete product', key='d', action='delete_product', params={'product': product}),
+            Action(
+                input='change product [q]uantity', key='q',
+                action='update_product_quantity',
+                params={'product': product}
+            ),
+            Action(
+                input='[u]pdate product properties', key='u',
+                action='update_product',
+                params={'product': product}
+            ),
+            Action(
+                input='[d]elete product', key='d',
+                action='delete_product',
+                params={'product': product}
+            ),
         ])
 
     @staticmethod

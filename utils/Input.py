@@ -20,9 +20,7 @@ class Input:
         )
 
     @staticmethod
-    def confirm(
-        inputMsg: str
-    ) -> bool:
+    def confirm(inputMsg: str) -> bool:
         return Input.__raiseInput(
             name='confirmation',
             inputMsg=inputMsg,
