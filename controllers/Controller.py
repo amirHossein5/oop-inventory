@@ -23,6 +23,9 @@ class Controller:
         filteredActions = [a for a in actions if a.key == letter]
 
         if len(filteredActions) != 0:
+            if callable(filteredActions[0].action):
+                return filteredActions[0].action(filteredActions[0].params)
+
             return action(filteredActions[0].action, params=filteredActions[0].params)
 
         Controller.__nextActions(actions, wrongInput=True)
